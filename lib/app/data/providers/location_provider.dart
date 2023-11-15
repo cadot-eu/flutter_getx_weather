@@ -14,7 +14,6 @@ class LocationProvider extends GetConnect {
       }
     };
     httpClient.baseUrl = 'http://ip-api.com/';
-    getLocation();
   }
 
   Future<Location?> getLocation() async {

@@ -1,19 +1,27 @@
+// ignore_for_file: avoid_print
+
 import 'dart:convert';
 
 import 'package:get/get.dart';
 import 'package:weather/app/data/models/location_model.dart';
+import 'package:weather/app/data/models/meteo_model.dart';
 import 'package:weather/app/data/providers/location_provider.dart';
+import 'package:weather/app/data/providers/meteo_provider.dart';
 
 class HomeController extends GetxController {
   Rx<Location> location = Rx<Location>(Location());
+  Rx<Meteo> meteo = Rx<Meteo>(Meteo());
 
   final _locationProvider = Get.put(LocationProvider());
+  final _meteoProvider = Get.put(MeteoProvider());
+
   @override
   Future<void> onInit() async {
     super.onInit();
     //on met une attente de 2 secondes pour voir le chargement
     await Future.delayed(const Duration(seconds: 3));
     await getPosition();
+    await getMeteo();
   }
 
   Future<void> getPosition({bool fake = false}) async {
@@ -29,5 +37,14 @@ class HomeController extends GetxController {
       }
     }
     return;
+  }
+
+  Future<void> getMeteo() async {
+    print('get meteo');
+    if (location.value.lat != null && location.value.lon != null) {
+      var temps =
+          await _meteoProvider.getMeteo(location.value.lat, location.value.lon);
+      meteo.value = temps!;
+    }
   }
 }

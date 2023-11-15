@@ -18,6 +18,7 @@ class HomeView extends GetView<HomeController> {
   @override
   Widget build(BuildContext context) {
     final location = controller.location;
+    final meteo = controller.meteo;
     return Scaffold(
       body: Obx(
         () => SafeArea(
@@ -35,9 +36,14 @@ class HomeView extends GetView<HomeController> {
                     .toString(), // Access the city property directly
                 style: const TextStyle(fontSize: 18),
               ),
+              const SizedBox(height: 32),
+              Text(
+                meteo.value.hourly?.temperature2m?.first.toString() ?? '0',
+              ),
               ElevatedButton(
                 onPressed: () {
                   controller.getPosition(fake: true);
+                  controller.getMeteo();
                 },
                 child: const Text('Relancer la localisation'),
               ),
