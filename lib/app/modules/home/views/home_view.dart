@@ -29,6 +29,12 @@ class HomeView extends GetView<HomeController> {
                   controller.myposition.value,
                   style: const TextStyle(fontSize: 18),
                 )),
+            ElevatedButton(
+              onPressed: () {
+                controller.getPosition(fake: true);
+              },
+              child: const Text('Relancer la localisation'),
+            ),
           ],
         ),
       ),
