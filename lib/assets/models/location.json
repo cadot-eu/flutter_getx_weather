@@ -1,0 +1,16 @@
+{
+  "status": "success",
+  "country": "Belgium",
+  "countryCode": "BE",
+  "region": "WAL",
+  "regionName": "Wallonia",
+  "city": "Farciennes",
+  "zip": "6240",
+  "lat": 50.4308,
+  "lon": 4.5319,
+  "timezone": "Europe/Brussels",
+  "isp": "Scarlet-TIS",
+  "org": "",
+  "as": "AS5432 Proximus NV",
+  "query": "62.235.45.209"
+}
