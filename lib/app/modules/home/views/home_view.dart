@@ -17,25 +17,27 @@ class HomeView extends GetView<HomeController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SafeArea(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            for (var item in ligne)
-              buildLocationRow(
-                  item['icon'] as IconData, item['text'] as String),
-            const SizedBox(height: 32),
-            Obx(() => Text(
-                  controller.myposition.value,
-                  style: const TextStyle(fontSize: 18),
-                )),
-            ElevatedButton(
-              onPressed: () {
-                controller.getPosition(fake: true);
-              },
-              child: const Text('Relancer la localisation'),
-            ),
-          ],
+      body: Obx(
+        () => SafeArea(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              for (var item in ligne)
+                buildLocationRow(
+                    item['icon'] as IconData, item['text'] as String),
+              const SizedBox(height: 32),
+              Text(
+                controller.myposition.value,
+                style: const TextStyle(fontSize: 18),
+              ),
+              ElevatedButton(
+                onPressed: () {
+                  controller.getPosition(fake: true);
+                },
+                child: const Text('Relancer la localisation'),
+              ),
+            ],
+          ),
         ),
       ),
     );
