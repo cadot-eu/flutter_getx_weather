@@ -2,12 +2,12 @@ import 'package:get/get.dart';
 import 'package:weather/app/data/providers/location_provider.dart';
 
 class HomeController extends GetxController {
-  String myposition = "";
+  Rx<String> myposition = RxString("");
   final locationProvider = Get.put(LocationProvider());
   @override
   Future<void> onInit() async {
     super.onInit();
-    myposition = await getPosition();
+    myposition.value = await getPosition();
   }
 
   Future<String> getPosition() async {

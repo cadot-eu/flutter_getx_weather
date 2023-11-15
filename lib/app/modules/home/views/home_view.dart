@@ -25,10 +25,10 @@ class HomeView extends GetView<HomeController> {
               buildLocationRow(
                   item['icon'] as IconData, item['text'] as String),
             const SizedBox(height: 32),
-            Text(
-              controller.myposition,
-              style: const TextStyle(fontSize: 18),
-            ),
+            Obx(() => Text(
+                  controller.myposition.value,
+                  style: const TextStyle(fontSize: 18),
+                )),
           ],
         ),
       ),
