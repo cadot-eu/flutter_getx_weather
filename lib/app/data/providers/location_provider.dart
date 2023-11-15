@@ -1,5 +1,4 @@
-import 'dart:convert';
-
+// ignore_for_file: avoid_print
 import 'package:get/get.dart';
 
 import '../models/location_model.dart';
@@ -21,12 +20,8 @@ class LocationProvider extends GetConnect {
   Future<Location?> getLocation() async {
     final response = await get('/json');
     if (response.statusCode == 200) {
-      // print('ok get location');
-      // final Location toto = response.body;
-      // print(toto.toJson());
       return response.body;
     } else {
-      print('Error get location:' + response.body);
       return null;
     }
   }

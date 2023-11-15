@@ -1,8 +1,12 @@
+import 'dart:convert';
+
 import 'package:get/get.dart';
+import 'package:weather/app/data/models/location_model.dart';
 import 'package:weather/app/data/providers/location_provider.dart';
 
 class HomeController extends GetxController {
-  Rx<String> myposition = RxString('not initialized');
+  Rx<Location> location = Rx<Location>(Location());
+
   final _locationProvider = Get.put(LocationProvider());
   @override
   Future<void> onInit() async {
@@ -12,22 +16,18 @@ class HomeController extends GetxController {
     await getPosition();
   }
 
-  Future<String> getPosition({bool fake = false}) async {
+  Future<void> getPosition({bool fake = false}) async {
     if (fake) {
       print('get fake position');
-      myposition.value =
-          '{"status":"success","country":"France","countryCode":"FR","region":"IDF","regionName":"Île-de-France","city":"Paris","zip":"75001","lat":48.8323,"lon":2.4075,"timezone":"Europe/Paris","isp":"SCALEWAY","org":"ONLINE","as":"AS12876 SCALEWAY S.A.S.","query":"51.159.148.219"}';
+      location.value = Location.fromJson(jsonDecode(
+          '{"status":"success","country":"France","countryCode":"FR","region":"IDF","regionName":"Île-de-France","city":"Paris","zip":"75001","lat":48.8323,"lon":2.4075,"timezone":"Europe/Paris","isp":"SCALEWAY","org":"ONLINE","as":"AS12876 SCALEWAY S.A.S.","query":"51.159.148.219"}'));
     } else {
       print('get position');
       var position = await _locationProvider.getLocation();
       if (position != null) {
-        print(position.toJson());
-        myposition.value = position.toJson().toString();
-      } else {
-        print("Position is null");
-        myposition.value = "Position is null";
+        location.value = position;
       }
     }
-    return myposition.value;
+    return;
   }
 }

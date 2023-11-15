@@ -1,21 +1,23 @@
 import 'package:flutter/material.dart';
-
 import 'package:get/get.dart';
-import 'package:weather/app/data/providers/location_provider.dart';
 
 import '../controllers/home_controller.dart';
 
 class HomeView extends GetView<HomeController> {
   HomeView({super.key});
+
   @override
   final controller = Get.put(HomeController());
+
   final ligne = [
     {'icon': Icons.location_city_outlined, 'text': "Your location is TODO"},
     {'icon': Icons.thermostat_outlined, 'text': "The temperature is TODO"},
     {'icon': Icons.info_outline, 'text': "You should TODO"},
   ];
+
   @override
   Widget build(BuildContext context) {
+    final location = controller.location;
     return Scaffold(
       body: Obx(
         () => SafeArea(
@@ -24,10 +26,13 @@ class HomeView extends GetView<HomeController> {
             children: [
               for (var item in ligne)
                 buildLocationRow(
-                    item['icon'] as IconData, item['text'] as String),
+                  item['icon'] as IconData,
+                  item['text'] as String,
+                ),
               const SizedBox(height: 32),
               Text(
-                controller.myposition.value,
+                location.value.city
+                    .toString(), // Access the city property directly
                 style: const TextStyle(fontSize: 18),
               ),
               ElevatedButton(
