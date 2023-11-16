@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:weather/app/modules/home/views/templates/row_item.dart';
 
 import '../controllers/home_controller.dart';
 
@@ -8,12 +9,6 @@ class HomeView extends GetView<HomeController> {
 
   @override
   final controller = Get.put(HomeController());
-
-  final ligne = [
-    {'icon': Icons.location_city_outlined, 'text': "Your location is TODO"},
-    {'icon': Icons.thermostat_outlined, 'text': "The temperature is TODO"},
-    {'icon': Icons.info_outline, 'text': "You should TODO"},
-  ];
 
   @override
   Widget build(BuildContext context) {
@@ -25,20 +20,15 @@ class HomeView extends GetView<HomeController> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              for (var item in ligne)
-                buildLocationRow(
-                  item['icon'] as IconData,
-                  item['text'] as String,
-                ),
-              const SizedBox(height: 32),
-              Text(
-                location.value.city
-                    .toString(), // Access the city property directly
-                style: const TextStyle(fontSize: 18),
+              RowItem(
+                icon: Icons.location_on,
+                text: location.value.city.toString(),
               ),
               const SizedBox(height: 32),
-              Text(
-                meteo.value.hourly?.temperature2m?.first.toString() ?? '0',
+              RowItem(
+                icon: Icons.wb_sunny,
+                text:
+                    meteo.value.hourly?.temperature2m?.first.toString() ?? '0',
               ),
               ElevatedButton(
                 onPressed: () {
